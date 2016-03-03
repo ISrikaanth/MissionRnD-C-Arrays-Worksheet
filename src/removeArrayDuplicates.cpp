@@ -17,6 +17,34 @@ NOTES: Don't create new array, try to change the input array.
 
 int removeArrayDuplicates(int *Arr, int len)
 {
-	
-	return -1;
+	if (Arr == NULL)
+		return -1;
+	if (len <= 0)
+		return -1;
+	int i = 1,k;
+	while (Arr[i] != '\0')
+	{
+		for (k = i - 1; k >= 0; k--)
+		{
+			if (Arr[i] == Arr[k])
+			{
+				Arr[i] = '$';
+				break;
+			}
+		}
+		i++;
+	}
+	for (i = 0; i < len; i++)
+	{
+		if (Arr[i] == '$')
+		{
+			for (k = i; k <len-1; k++)
+				Arr[k] = Arr[k + 1];
+			Arr[k] = '\0';
+			len--;
+			if (Arr[i] == '$')
+				i--;
+		}
+	}
+	return len;
 }

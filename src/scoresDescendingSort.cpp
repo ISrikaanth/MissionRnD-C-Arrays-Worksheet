@@ -14,12 +14,33 @@ NOTES:
 */
 
 #include <stdio.h>
-
 struct student {
 	char name[10];
 	int score;
 };
 
-void * scoresDescendingSort(struct student *students, int len) {
-	return NULL;
+void * scoresDescendingSort(struct student *students, int len)
+{
+	if (len <= 0)
+		return NULL;
+	if (students == NULL)
+		return NULL;
+	int i = 0, max, t, pos, j;
+	for (i = 0; i < len; i++)
+	{
+		max = students[i].score;
+		pos = i;
+		for (j = i + 1; j < len; j++)
+		{
+			if ((students[j].score) > max)
+			{
+				max = students[j].score;
+				pos = j;
+			}
+		}
+		t = students[i].score;
+		students[i].score = students[pos].score;
+		students[pos].score = t;
+	}
+	return 0;
 }
