@@ -20,14 +20,17 @@ struct student {
 	char *name;
 	int score;
 };
-
 struct student ** topKStudents(struct student *students, int len, int K)
 {
-	if ((students == NULL) || (len <= 0) || (K > len)||(K<=0))
+	if ((students == NULL) || (len <= 0) || (K <= 0))
 		return NULL;
-	struct student *result;
-	result = (struct student *)malloc(10*sizeof(struct student));
-	int i = 0, max, pos = 0,j,p;
+	//if (len < K)
+		//return NULL;
+	if (K > len)
+		K = len;
+	struct student **result;
+	result = (struct student **)malloc(20*sizeof(struct student));
+	int i = 0, max, pos = 0,j,p,t;
 	p = K;
 	for (i = 0; i < len; i++)
 	{
@@ -41,11 +44,13 @@ struct student ** topKStudents(struct student *students, int len, int K)
 				pos = j;
 			}
 		}
-		result[p-1].name = students[pos].name;
-		result[p-1].score = students[pos].score;
+		result[p-1]=&students[i];
+		t = students[i].score;
+		students[i].score = students[pos].score;
+		students[pos].score = t;
 		p--;
 		if (p == 0)
 			break;
 	}
-	return &result;
+	return result;
 }
